@@ -38,14 +38,19 @@ struct ContentView: View {
             
             List {
                 ForEach (toDos) { toDoItem in
+                    if toDoItem.isImp {
+                        Text("‼"+toDoItem.item)
+                    } else {
                         Text(toDoItem.item)
+                    }
                 }
             }
+            .listStyle(.plain)
         } //VStack
         .padding()
         
-        if showNewTask == true {
-            NewToDoView()
+        if showNewTask {
+            NewToDoView(toDoItem: ToDoItem(item: "", isImp: false), showNewTask: .constant(false))
         }
         
         
@@ -54,4 +59,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .modelContainer(for: ToDoItem.self, inMemory: true)
 }

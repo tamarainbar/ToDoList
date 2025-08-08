@@ -6,33 +6,41 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NewToDoView: View {
-    @State private var itemm = ""
-    @State private var importance = ""
+    @Bindable var toDoItem: ToDoItem
+    @Environment(\.modelContext) var modelContext
+    @Binding var showNewTask: Bool
     
     var body: some View {
         VStack {
             //Spacer()
             Text("Task Title:")
-            TextField("Enter the task description...", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+            TextField("Enter the task description...", text: $toDoItem.item, axis: .vertical)
                 .frame(width: 370.0, height: 30.0)
                 .multilineTextAlignment(.center)
                 .background(Color(.systemGroupedBackground))
                 .cornerRadius(10)
-            Toggle(isOn: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Is On@*/.constant(true)/*@END_MENU_TOKEN@*/) {
+            Toggle(isOn: $toDoItem.isImp) {
                 Text("Is it important")
             }
             Button {
-                //ToDoItem(item: itemm, isImp: importance)
+                addToDo()
+                showNewTask = false
             } label: {
                 Text("Save")
             }
         } //VStack
         .padding()
     }
+    
+    func addToDo() {
+        let toDo = ToDoItem(item: toDoItem.item, isImp: toDoItem.isImp)
+        modelContext.insert(toDo)
+    }
 }
 
 #Preview {
-    NewToDoView()
+    NewToDoView(toDoItem: ToDoItem(item: "", isImp: false), showNewTask: .constant(false))
 }
