@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct NewToDoView: View {
+    @State private var itemm = ""
+    @State private var importance = ""
+    
     var body: some View {
         VStack {
             //Spacer()
@@ -21,7 +24,7 @@ struct NewToDoView: View {
                 Text("Is it important")
             }
             Button {
-                
+                //ToDoItem(item: itemm, isImp: importance)
             } label: {
                 Text("Save")
             }
