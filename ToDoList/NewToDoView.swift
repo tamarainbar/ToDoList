@@ -10,7 +10,7 @@ import SwiftUI
 struct NewToDoView: View {
     var body: some View {
         VStack {
-            Spacer()
+            //Spacer()
             Text("Task Title:")
             TextField("Enter the task description...", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
                 .frame(width: 370.0, height: 30.0)
